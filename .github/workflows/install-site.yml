@@ -3,7 +3,7 @@ name: Install website source
 on:
   push:
     paths:
-      - '.site-bundle/site.tar.gz.b64'
+      - '.site-bundle/chunk-*'
       - '.github/workflows/install-site.yml'
   workflow_dispatch:
 
@@ -22,9 +22,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          test "$(find .site-bundle -maxdepth 1 -name 'chunk-*' | wc -l)" -eq 10
           rm -rf .site-tmp
           mkdir .site-tmp
-          base64 --decode .site-bundle/site.tar.gz.b64 > /tmp/rs1-site.tar.gz
+          cat .site-bundle/chunk-* | base64 --decode > /tmp/rs1-site.tar.gz
+          tar -tzf /tmp/rs1-site.tar.gz >/dev/null
           tar -xzf /tmp/rs1-site.tar.gz -C .site-tmp
           rsync -a --exclude '.github/workflows/deploy-pages.yml' .site-tmp/ ./
           rm -rf .site-tmp .site-bundle

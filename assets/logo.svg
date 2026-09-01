@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 78" role="img" aria-labelledby="title desc">
+  <title id="title">RS1 Bygg</title><desc id="desc">Konseptlogo for RS1 Bygg i Narvik</desc>
+  <rect x="1" y="1" width="76" height="76" rx="10" fill="#b86435"/>
+  <path d="M17 18h26c10 0 17 6 17 15 0 7-4 12-11 14l14 13H46L35 49h-5v11H17V18zm13 11v10h12c4 0 6-2 6-5s-2-5-6-5H30z" fill="#fff"/>
+  <path d="M59 18h10v42H56V29h-8V18h11z" fill="#171815" opacity=".92"/>
+  <text x="92" y="39" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="900" letter-spacing="-1.5" fill="#171815">RS1</text>
+  <text x="177" y="39" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" letter-spacing="5" fill="#171815">BYGG</text>
+  <text x="94" y="62" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="700" letter-spacing="3.8" fill="#6f706a">NARVIK</text>
+</svg>

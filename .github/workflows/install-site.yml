@@ -1,0 +1,43 @@
+name: Install website source
+
+on:
+  push:
+    paths:
+      - '.site-bundle/site.tar.gz.b64'
+      - '.github/workflows/install-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Unpack site source
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .site-tmp
+          mkdir .site-tmp
+          base64 --decode .site-bundle/site.tar.gz.b64 > /tmp/rs1-site.tar.gz
+          tar -xzf /tmp/rs1-site.tar.gz -C .site-tmp
+          rsync -a --exclude '.github/workflows/deploy-pages.yml' .site-tmp/ ./
+          rm -rf .site-tmp .site-bundle
+      - name: Commit installed site
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Publish RS1 Bygg website'
+          git push
